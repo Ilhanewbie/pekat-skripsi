@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Mail\VerifikasiEmailUntukRegistrasiPengaduanMasyarakat;
 use App\Models\Masyarakat;
+use App\Models\Petugas;
 use App\Models\Pengaduan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,8 +25,40 @@ class UserController extends Controller
         return view('user.landing', ['pengaduan' => $pengaduan]);
     }
 
+    public function landing_page(){
+        if (Auth::guard('masyarakat')->check()) {
+            // Jika otentikasi berhasil, arahkan ke view 'landingpage'
+            return redirect()->route('pekat.index');
+        } elseif(Auth::guard('admin')->check()){
+            return redirect()->route('dashboard.index');
+        }else {
+        // Jika pengguna belum terotentikasi, arahkan ke halaman login
+        return view('landingpage');
+        }
+    }
+
     public function login(Request $request)
     {
+        if(Petugas::where('username', $request->username)->exists()){
+            $petugas = Petugas::where('username', $request->username)->first();
+            if (!$petugas) {
+                return redirect()->back()->with(['pesan' => 'Username tidak terdaftar!']);
+            }
+
+            $passwordPetugas = Hash::check($request->password, $petugas->password);
+
+            if (!$passwordPetugas) {
+                return redirect()->back()->with(['pesan' => 'Password tidak sesuai!']);
+            }
+
+            $auth = Auth::guard('admin')->attempt(['username' => $request->username, 'password' => $request->password]);
+
+            if ($auth) {
+                return redirect()->route('dashboard.index');
+            } else {
+                return redirect()->back()->with(['pesan' => 'Akun tidak terdaftar!']);
+            }
+        }
         // Pengecekan $request->username isinya email atau username
         if (filter_var($request->username, FILTER_VALIDATE_EMAIL)) {
             // jika isinya string email, cek email nya di table masyarakat
@@ -47,7 +80,7 @@ class UserController extends Controller
             // Jalankan fungsi auth jika berjasil melewati validasi di atas
             if (Auth::guard('masyarakat')->attempt(['email' => $request->username, 'password' => $request->password])) {
                 // Jika login berhasil
-                return redirect()->back();
+                return redirect()->route('pekat.index');
             } else {
                 // Jika login gagal
                 return redirect()->back()->with(['pesan' => 'Akun tidak terdaftar!']);
@@ -88,7 +121,7 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
-        // Masukkan semua data yg dikirim ke variable $data 
+        // Masukkan semua data yg dikirim ke variable $data
         $data = $request->all();
 
         // Buat variable $validate kemudian isinya Validator::make(datanya, [nama_field => peraturannya])
@@ -137,7 +170,11 @@ class UserController extends Controller
         // Mail::to($data['email'])->send(new VerifikasiEmailUntukRegistrasiPengaduanMasyarakat($data['nama'], $link));
 
         // Arahkan ke route pekat.index
-        return redirect()->route('pekat.index');
+        // Otentikasi pengguna
+        if (Auth::guard('masyarakat')->attempt(['email' => $data['email'], 'password' => $data['password']])) {
+            // Jika otentikasi berhasil, arahkan ke route pekat.index
+            return redirect()->route('pekat.index');
+        }
     }
 
     public function logout()
@@ -156,7 +193,7 @@ class UserController extends Controller
             return redirect()->back()->with(['pesan' => 'Login dibutuhkan!'])->withInput();
         }
 
-        // Masukkan semua data yg dikirim ke variable $data 
+        // Masukkan semua data yg dikirim ke variable $data
         $data = $request->all();
 
         // Buat variable $validate kemudian isinya Validator::make(datanya, [nama_field => peraturannya])

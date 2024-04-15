@@ -9,13 +9,17 @@
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
     <title>Laporan Pengaduan</title>
+    <style>
+        h5{
+            font-family: 'Helvetica', sans-serif;
+        }
+    </style>
 </head>
 <body>
-    <div class="text-center">
-        <h5>Laporan Pengaduan Masyarakat</h5>
-        <h6>Ihsanfrr.githu.io</h6>
-    </div>
     <div class="container">
+        <div class="text-center mb-4 header" style="font-size: 18px;font-weight:bold;">
+            <p>Laporan Pengaduan Masyarakat</h5>
+        </div>
         <table class="table">
             <thead>
                 <tr>

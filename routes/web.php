@@ -23,7 +23,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [UserController::class, 'index'])->name('pekat.index');
+Route::get('/', [UserController::class, 'landing_page'])->name('pekat.landingPage');
+Route::get('/form-pengaduan', [UserController::class, 'index'])->name('pekat.index')->middleware('isMasyarakat');
 
 Route::post('/masyarakat/sendverification', [EmailController::class, 'sendVerification'])->name('pekat.sendVerification');
 Route::get('/masyarakat/verify/{nik}', [EmailController::class, 'verify'])->name('pekat.verify');

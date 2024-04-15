@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
-        
+
     @yield('css')
 
     <style>
@@ -28,7 +28,7 @@
     </style>
 
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
-    
+
 </head>
 
 <body>
@@ -37,7 +37,7 @@
         <nav id="sidebar">
             <div class="sidebar-header">
                 <h3 class="mb-0">PEKAT</h3>
-                <p class="text-white mb-0">Pengaduan Masyarakat</p>
+                <p class="text-white mb-0">{{ Auth::guard('admin')->user()->nama_petugas }}</p>
             </div>
 
             <ul class="list-unstyled components">
@@ -87,7 +87,7 @@
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
-                            <a href="{{ route('admin.logout') }}" class="btn btn-white btn-sm">{{ Auth::guard('admin')->user()->nama_petugas }}</a>
+                            <a href="{{ route('admin.logout') }}" class="btn btn-white btn-sm">Logout</a>
                         </ul>
                     </div>
                 </div>

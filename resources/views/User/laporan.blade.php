@@ -4,6 +4,14 @@
 <link rel="stylesheet" href="{{ asset('css/landing.css') }}">
 <link rel="stylesheet" href="{{ asset('css/laporan.css') }}">
 <style>
+    .header {
+        position: relative;
+        width: 100%;
+        height: 35vh;
+        background: #6a70fc;
+        overflow: hidden;
+    }
+
     .notification {
         padding: 14px;
         text-align: center;
@@ -27,25 +35,11 @@
 @section('content')
 {{-- Section Header --}}
 <section class="header">
-    @if (Auth::guard('masyarakat')->check() && Auth::guard('masyarakat')->user()->email_verified_at == null)
-    <div class="row">
-        <div class="col">
-            <div class="notification">
-                Konfirmasi email <span class="font-weight-bold">{{ Auth::guard('masyarakat')->user()->email }}</span> untuk melindungi akun Anda.
-                <form action="{{ route('pekat.sendVerification') }}" method="POST" style="display: inline-block">
-                    @csrf
-                    <button type="submit" class="btn btn-white">Verifikasi Sekarang</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    @endif
     <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
         <div class="container">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{{ route('pekat.index') }}">
-                    <h4 class="semi-bold mb-0 text-white">PEKAT</h4>
-                    <p class="italic mt-0 text-white">Pengaduan Masyarakat</p>
+                    <p class="italic mt-2 text-white"><i class="fas fa-chevron-left"></i> Kembali</p>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

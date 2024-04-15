@@ -66,7 +66,7 @@
                     <form action="{{ route('pekat.register') }}" method="POST">
                         @csrf
                         <div class="form-group">
-                            <input type="number" value="{{ old('nik') }}" name="nik" placeholder="NIK" class="form-control @error('nik') is-invalid @enderror">
+                            <input type="text" value="{{ old('nik') }}" name="nik" placeholder="NIK" class="form-control @error('nik') is-invalid @enderror" oninput="validateNik(this)">
                             @error('nik')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -106,7 +106,7 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <input type="number" value="{{ old('telp') }}" name="telp" placeholder="No. Telp" class="form-control @error('telp') is-invalid @enderror">
+                            <input type="text" value="{{ old('telp') }}" name="telp" placeholder="No. Telp" class="form-control @error('telp') is-invalid @enderror" oninput="validateNohp(this)">
                             @error('telp')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -115,11 +115,6 @@
                         </div>
                         <button type="submit" class="btn btn-purple">DAFTAR</button>
                     </form>
-                    <div class="text-center">
-                        <p class="my-3 text-secondary">Gunakan Akun Media Sosial Anda</p>
-                    </div>
-                    <a href="{{ route('pekat.auth', 'facebook') }}" class="btn btn-facebook mb-2"><i class="fa fa-facebook" style="font-size:14px"></i> FACEBOOK</a>
-                    <a href="{{ route('pekat.auth', 'google') }}" class="btn btn-google"><i class="fa fa-google" style="font-size:14px"></i> GOOGLE</a>
                 </div>
             </div>
             @if (Session::has('pesan'))
@@ -127,8 +122,29 @@
                     {{ Session::get('pesan') }}
                 </div>
             @endif
-            <a href="{{ route('pekat.index') }}" class="btn btn-warning text-white mt-3" style="width: 100%; font-weight: 600">Kembali ke Halaman Utama</a>
+            <a href="{{ route('pekat.landingPage') }}" class="btn btn-warning text-white mt-3 mb-3" style="width: 100%; font-weight: 600">Kembali ke Halaman Utama</a>
         </div>
     </div>
 </div>
+@endsection
+@section('js')
+<script>
+    function validateNik(input) {
+        input.value = input.value.replace(/\D/g, '');
+
+        if (input.value.length > 16) {
+            input.value = input.value.slice(0, 16);
+        }
+    }
+
+    function validateNohp(input) {
+    input.value = input.value.replace(/\D/g, '');
+
+    if (input.value.length < 10) {
+        input.classList.add('is-invalid');
+    } else {
+        input.classList.remove('is-invalid');
+    }
+}
+</script>
 @endsection

@@ -42,6 +42,6 @@ class AdminController extends Controller
     {
         Auth::guard('admin')->logout();
 
-        return redirect()->route('admin.formLogin');
+        return redirect()->route('pekat.landingPage');
     }
 }

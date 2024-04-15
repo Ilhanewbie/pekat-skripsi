@@ -56,26 +56,19 @@
 @section('content')
 {{-- Section Header --}}
 <section class="header">
-    @if (Auth::guard('masyarakat')->check() && Auth::guard('masyarakat')->user()->email_verified_at == null)
-    <div class="row">
-        <div class="col">
-            <div class="notification">
-                Konfirmasi email <span class="font-weight-bold">{{ Auth::guard('masyarakat')->user()->email }}</span>
-                untuk melindungi akun Anda.
-                <form action="{{ route('pekat.sendVerification') }}" method="POST" style="display: inline-block">
-                    @csrf
-                    <button type="submit" class="btn btn-white">Verifikasi Sekarang</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    @endif
     <nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
         <div class="container">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <h4 class="semi-bold mb-0 text-white">PEKAT</h4>
-                    <p class="italic mt-0 text-white">Pengaduan Masyarakat</p>
+                    <div class="row align-items-center">
+                        <div class="col-auto pr-0">
+                            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="img-fluid" style="max-height: 50px;">
+                        </div>
+                        <div class="col pl-0">
+                            <h4 class="semi-bold mb-0 text-white">PEKAT</h4>
+                            <p class="italic mt-0 mb-0 text-white">Pengaduan Masyarakat</p>
+                        </div>
+                    </div>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -89,17 +82,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link ml-3 text-white" href="{{ route('pekat.logout') }}"
-                                style="text-decoration: underline">{{ Auth::guard('masyarakat')->user()->nama }}</a>
-                        </li>
-                    </ul>
-                    @else
-                    <ul class="navbar-nav text-center ml-auto">
-                        <li class="nav-item">
-                            <button class="btn text-white" type="button" class="btn btn-primary" data-toggle="modal"
-                                data-target="#loginModal">Masuk</button>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('pekat.formRegister') }}" class="btn btn-outline-purple">Daftar</a>
+                                style="text-decoration: underline">Logout</a>
                         </li>
                     </ul>
                     @endauth
@@ -109,8 +92,8 @@
     </nav>
 
     <div class="text-center">
-        <h2 class="medium text-white mt-3">Layanan Pengaduan Masyarakat</h2>
-        <p class="italic text-white mb-5">Sampaikan laporan Anda langsung kepada yang pemerintah berwenang</p>
+        <h2 class="medium text-white mt-3">Hai, {{ Auth::guard('masyarakat')->user()->nama }}</h2>
+        <p class="italic text-white mb-3">Sampaikan laporan Anda langsung kepada yang pemerintah berwenang</p>
     </div>
 
     <div class="wave wave1"></div>
@@ -119,7 +102,7 @@
     <div class="wave wave4"></div>
 </section>
 {{-- Section Card Pengaduan --}}
-<div class="row justify-content-center">
+<div class="row justify-content-center" style="width: 100%">
     <div class="col-lg-6 col-10 col">
         <div class="content shadow">
 

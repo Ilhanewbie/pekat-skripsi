@@ -101,6 +101,17 @@
                                 <td>:</td>
                                 <td>{{ $pengaduan->lokasi_kejadian }}</td>
                             </tr>
+                            <tr>
+                                <th>Hapus Pengaduan</th>
+                                <td>:</td>
+                                <td>
+                                    <form action="{{ route('pengaduan.destroy', $pengaduan->id_pengaduan) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger" style="width: 100%" onclick="return confirm('APAKAH YAKIN?')">HAPUS</button>
+                                    </form>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

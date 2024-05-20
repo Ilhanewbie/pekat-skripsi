@@ -222,6 +222,7 @@ class UserController extends Controller
 
         $pengaduan = Pengaduan::create([
             'tgl_pengaduan' => date('Y-m-d h:i:s'),
+            'nik' => Auth::guard('masyarakat')->user()->nik,
             'id_masyarakat' => Auth::guard('masyarakat')->user()->id_masyarakat,
             'judul_laporan' => $data['judul_laporan'],
             'isi_laporan' => $data['isi_laporan'],

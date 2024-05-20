@@ -24,4 +24,16 @@ class PengaduanController extends Controller
 
         return view('Admin.Pengaduan.show', ['pengaduan' => $pengaduan, 'tanggapan' => $tanggapan]);
     }
+
+    public function destroy(Pengaduan $pengaduan)
+    {
+        $pengaduan->delete();
+        return redirect()->route('pengaduan.index');
+        // $pengaduan = Pengaduan::where('id_pengaduan', $pengaduan->id_pengaduan)->first();
+
+        // if (!$pengaduan) {
+        // } else {
+        //     return redirect()->back()->with(['notif' => 'Can\'t delete. Masyarakat has a relationship!']);
+        // }
+    }
 }

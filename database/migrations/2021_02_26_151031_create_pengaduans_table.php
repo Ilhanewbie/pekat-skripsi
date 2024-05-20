@@ -16,6 +16,7 @@ class CreatePengaduansTable extends Migration
         Schema::create('pengaduan', function (Blueprint $table) {
             $table->id('id_pengaduan');
             $table->dateTime('tgl_pengaduan');
+            $table->char('nik', 16);
             $table->unsignedBigInteger('id_masyarakat');
             $table->string('judul_laporan');
             $table->text('isi_laporan');

@@ -25,7 +25,7 @@ class MasyarakatController extends Controller
 
     public function destroy(Masyarakat $masyarakat)
     {
-        $pengaduan = Pengaduan::where('nik', $masyarakat->nik)->first();
+        $pengaduan = Pengaduan::where('id_masyarakat', $masyarakat->id_masyarakat)->first();
 
         if (!$pengaduan) {
             $masyarakat->delete();

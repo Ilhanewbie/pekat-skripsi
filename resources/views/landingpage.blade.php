@@ -48,33 +48,42 @@
         font-weight: 600;
     }
 
+    .background-img {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1; 
+        opacity: 0.3;
+        background-image: url(../images/bg-1.png);
+        background-size: cover; 
+        background-repeat: no-repeat; 
+        background-position: center; 
+    }
 </style>
 @endsection
 
 @section('title', 'PEKAT - Pengaduan Masyarakat')
-
 @section('content')
 {{-- Section Header --}}
 <section class="header">
+    <div class="background-img"></div>
         <div class="row">
         <div class="col d-flex justify-content-center align-items-center" style="height: 100vh;">
             <div class="text-center">
-                <img src="{{ asset('images/logo.png') }}" width="18%" height="18%">
+                <img src="{{ asset('images/logo.png') }}" width="30%" class="mt-2">
+                <img src="{{ asset('images/logo-v2.png') }}" width="20%" class="mr-4">
                 <h1 class="text-white mb-0 display-4">PEKAT</h2>
                 <h2 class="medium text-white">(Pengaduan Masyarakat)</h2>
-                <p class="italic text-white mb-3">Sampaikan laporan Anda langsung kepada yang pemerintah berwenang</p>
+                <p class="italic text-white mb-3">Sampaikan laporan Anda langsung kepada pemerintah yang berwenang</p>
                 <div class="row d-flex justify-content-center">
                     <button type="button" class="btn btn-outline-light btn-lg mr-3" data-toggle="modal" data-target="#loginModal">Masuk</button>
-                    <a href="{{ route('pekat.formRegister') }}" class="btn btn-light btn-lg text-primary">Daftar</a>
+                    <a href="{{ route('pekat.formRegister') }}" class="btn btn-light btn-lg text-success">Daftar</a>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="wave wave1"></div>
-    <div class="wave wave2"></div>
-    <div class="wave wave3"></div>
-    <div class="wave wave4"></div>
 </section>
 {{-- Modal --}}
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

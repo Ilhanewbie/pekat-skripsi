@@ -16,6 +16,10 @@ class TanggapanController extends Controller
 
         $tanggapan = Tanggapan::where('id_pengaduan', $request->id_pengaduan)->first();
 
+        if($request->tanggapan == null){
+            return redirect()->route('pengaduan.show', ['pengaduan' => $pengaduan, 'tanggapan' => $tanggapan])->with(['error' => 'Tanggapan tidak boleh kosong!']);
+        }
+
         if ($tanggapan) {
             $pengaduan->update(['status' => $request->status]);
 

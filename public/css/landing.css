@@ -4,7 +4,8 @@
     position: relative;
     width: 100%;
     height: 400px;
-    background: #6a70fc;
+    /* background: linear-gradient(to bottom, #277100, #fff500); */
+    z-index: 1;
     overflow: hidden;
 }
 
@@ -120,7 +121,7 @@ body {
 .navbar .container-fluid #navbarNav .navbar-nav .nav-item .btn-purple {
     border: 1px solid #fff;
     background: #fff;
-    color: #6a70fc !important;
+    color: #277100 !important;
     width: 100%;
 }
 
@@ -131,7 +132,7 @@ body {
 }
 
 .navbar .container-fluid #navbarNav .navbar-nav .nav-item .btn-outline-purple:hover {
-    color: #6a70fc;
+    color: #277100;
     border: 1px solid #fff;
     background: #fff;
 }
@@ -148,21 +149,31 @@ body {
     z-index: 1001;
 }
 
+.row .banner-top {
+    z-index: 9999;
+}
+
 @media screen and (max-width: 576px) {
+    /* .header{
+        height: 200px;
+    } */
     .row .col .content-top {
         padding: 32px 20px 32px 20px;
         background: #fff;
         margin-top: -160px;
-        border-color: #6a70fc;
+        border-color: #277100;
     }
 }
 
 @media screen and (max-width: 768px) {
+    /* .header{
+        height: 200px;
+    } */
     .row .col .content-top {
         padding: 32px 20px 32px 20px;
         background: #fff;
         margin-top: -160px;
-        border-color: #6a70fc;
+        border-color: #277100;
     }
 }
 
@@ -171,23 +182,32 @@ body {
         padding: 32px 20px 32px 20px;
         background: #fff;
         margin-top: -160px;
-        border-color: #6a70fc;
+        border-color: #277100;
     }
 }
 
 @media screen and (max-width: 576px) {
+    /* .header{
+        height: 200px;
+    } */
     .row .col .content-bottom {
         margin-top: 32px;
     }
 }
 
 @media screen and (max-width: 768px) {
+    /* .header{
+        height: 200px;
+    } */
     .row .col .content-bottom {
         margin-top: 32px;
     }
 }
 
 @media screen and (max-width: 992px) {
+    /* .header{
+        height: 200px;
+    } */
     .row .col .content-bottom {
         margin-top: 32px;
     }
@@ -196,7 +216,26 @@ body {
 .row .col .content {
     padding: 32px 20px 32px 20px;
     background: #fff;
-    border-color: #6a70fc;
+    border-color: #277100;
+}
+
+.content {
+    /* margin-top: -160px; */
+    position: relative;
+    top: -160px;
+    padding: 32px 20px 32px 20px;
+    background: #fff;
+    border-color: #277100;
+}
+
+.contents {
+    /* margin-top: -160px; */
+    position: relative;
+    top: -160px;
+    padding: 32px 20px 32px 20px;
+    background: #fff;
+    z-index: 9999;
+    border-color: #277100;
 }
 
 @media screen and (min-width: 992px) {
@@ -204,24 +243,37 @@ body {
         padding: 32px 20px 32px 20px;
         background: #fff;
         margin-top: -160px;
-        border-color: #6a70fc;
+        border-color: #277100;
     }
 }
 
 .row .col .content .card {
-    background: #6a70fc;
+    background: #277100;
+    padding: 16px;
+    color: #fff;
+}
+
+.row .contents .card {
+    background: #277100;
     padding: 16px;
     color: #fff;
 }
 
 .row .col .content .btn-custom {
-    background: #6a70fc;
+    background: #277100;
     color: #fff;
     width: 100%;
 }
 
+.row .contents .btn-custom {
+    background: #277100;
+    color: #fff;
+    width: 100%;
+}
+
+
 .pengaduan .bg-purple {
-    background: #6a70fc;
+    background: #277100;
     width: 100%;
     padding: 26px;
 }
@@ -238,8 +290,8 @@ body {
 }
 
 .modal .modal-dialog .modal-content .modal-body .btn-purple {
-    border: 1px solid #6a70fc;
-    background: #6a70fc;
+    border: 1px solid #277100;
+    background: #277100;
     color: #fff;
     width: 100%;
 }

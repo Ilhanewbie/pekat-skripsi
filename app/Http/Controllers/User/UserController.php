@@ -22,7 +22,7 @@ class UserController extends Controller
         $pengaduan = Pengaduan::all()->count();
 
         // Arahkan ke file user/landing.blade.php
-        return view('user.landing', ['pengaduan' => $pengaduan]);
+        return view('User.landing', ['pengaduan' => $pengaduan]);
     }
 
     public function landing_page(){
@@ -105,7 +105,7 @@ class UserController extends Controller
             // Jalankan fungsi auth jika berjasil melewati validasi di atas
             if (Auth::guard('masyarakat')->attempt(['username' => $request->username, 'password' => $request->password])) {
                 // Jika login berhasil
-                return redirect()->back();
+                return redirect()->route('pekat.index');
             } else {
                 // Jika login gagal
                 return redirect()->back()->with(['pesan' => 'Akun tidak terdaftar!']);
@@ -193,10 +193,8 @@ class UserController extends Controller
             return redirect()->back()->with(['pesan' => 'Login dibutuhkan!'])->withInput();
         }
 
-        // Masukkan semua data yg dikirim ke variable $data
         $data = $request->all();
 
-        // Buat variable $validate kemudian isinya Validator::make(datanya, [nama_field => peraturannya])
         $validate = Validator::make($data, [
             'judul_laporan' => ['required'],
             'isi_laporan' => ['required'],
@@ -205,23 +203,26 @@ class UserController extends Controller
             'kategori_kejadian' => ['required'],
         ]);
 
-        // Pengecekan jika validate fails atau gagal
         if ($validate->fails()) {
             return redirect()->back()->withErrors($validate)->withInput();
         }
 
-        // Pengecekan jika ada file foto yang dikirim
-        if ($request->file('foto')) {
-            $data['foto'] = $request->file('foto')->store('assets/pengaduan', 'public');
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $fileName = time() . '_' . mt_rand(10000, 99999) . '.' . $file->getClientOriginalExtension();
+            if ($file->storeAs('pengaduan', $fileName,'public')) {
+                $fotoPath = 'storage/pengaduan/' . $fileName;
+                $data['foto'] = $fotoPath;
+            } else {
+                return redirect()->back()->with(['pengaduan' => 'Gagal menyimpan foto!', 'type' => 'danger']);
+            }
         }
 
-        // Set timezone waktu ke Asia/Bangkok
         date_default_timezone_set('Asia/Bangkok');
 
-        // Membuat variable $pengaduan isinya Memasukkan data kedalam table Pengaduan
         $pengaduan = Pengaduan::create([
             'tgl_pengaduan' => date('Y-m-d h:i:s'),
-            'nik' => Auth::guard('masyarakat')->user()->nik,
+            'id_masyarakat' => Auth::guard('masyarakat')->user()->id_masyarakat,
             'judul_laporan' => $data['judul_laporan'],
             'isi_laporan' => $data['isi_laporan'],
             'tgl_kejadian' => $data['tgl_kejadian'],
@@ -244,11 +245,11 @@ class UserController extends Controller
     public function laporan($siapa = '')
     {
         // Membuat variable $terverifikasi isinya menghitung pengaduan status pending
-        $terverifikasi = Pengaduan::where([['nik', Auth::guard('masyarakat')->user()->nik], ['status', '!=', '0']])->get()->count();
+        $terverifikasi = Pengaduan::where([['id_masyarakat', Auth::guard('masyarakat')->user()->id_masyarakat], ['status', '!=', '0']])->get()->count();
         // Membuat variable $terverifikasi isinya menghitung pengaduan status proses
-        $proses = Pengaduan::where([['nik', Auth::guard('masyarakat')->user()->nik], ['status', 'proses']])->get()->count();
+        $proses = Pengaduan::where([['id_masyarakat', Auth::guard('masyarakat')->user()->id_masyarakat], ['status', 'proses']])->get()->count();
         // Membuat variable $terverifikasi isinya menghitung pengaduan status selesai
-        $selesai = Pengaduan::where([['nik', Auth::guard('masyarakat')->user()->nik], ['status', 'selesai']])->get()->count();
+        $selesai = Pengaduan::where([['id_masyarakat', Auth::guard('masyarakat')->user()->id_masyarakat], ['status', 'selesai']])->get()->count();
 
         // Masukkan 3 variable diatas ke dalam variable array $hitung
         $hitung = [$terverifikasi, $proses, $selesai];
@@ -256,13 +257,13 @@ class UserController extends Controller
         // Pengecekan jika ada parameter $siapa yang dikirimkan di url
         if ($siapa == 'me') {
             // Jika $siapa isinya 'me'
-            $pengaduan = Pengaduan::where('nik', Auth::guard('masyarakat')->user()->nik)->orderBy('tgl_pengaduan', 'desc')->get();
+            $pengaduan = Pengaduan::where('id_masyarakat', Auth::guard('masyarakat')->user()->id_masyarakat)->orderBy('tgl_pengaduan', 'desc')->get();
 
             // Arahkan ke file user/laporan.blade.php sebari kirim data pengaduan, hitung, siapa
             return view('user.laporan', ['pengaduan' => $pengaduan, 'hitung' => $hitung, 'siapa' => $siapa]);
         } else {
             // Jika $siapa kosong
-            $pengaduan = Pengaduan::where([['nik', '!=', Auth::guard('masyarakat')->user()->nik], ['status', '!=', '0']])->orderBy('tgl_pengaduan', 'desc')->get();
+            $pengaduan = Pengaduan::where([['id_masyarakat', '!=', Auth::guard('masyarakat')->user()->id_masyarakat], ['status', '!=', '0']])->orderBy('tgl_pengaduan', 'desc')->get();
 
             // Arahkan ke file user/laporan.blade.php sebari kirim data pengaduan, hitung, siapa
             return view('user.laporan', ['pengaduan' => $pengaduan, 'hitung' => $hitung, 'siapa' => $siapa]);

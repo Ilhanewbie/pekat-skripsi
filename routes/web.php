@@ -24,21 +24,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [UserController::class, 'landing_page'])->name('pekat.landingPage');
-Route::get('/form-pengaduan', [UserController::class, 'index'])->name('pekat.index')->middleware('isMasyarakat');
+// ->middleware('isMasyarakat');
 
 Route::post('/masyarakat/sendverification', [EmailController::class, 'sendVerification'])->name('pekat.sendVerification');
 Route::get('/masyarakat/verify/{nik}', [EmailController::class, 'verify'])->name('pekat.verify');
 
 Route::middleware(['isMasyarakat'])->group(function () {
+    Route::get('/form-pengaduan', [UserController::class, 'index'])->name('pekat.index');
     // Pengaduan
     Route::post('/store', [UserController::class, 'storePengaduan'])->name('pekat.store');
     Route::get('/laporan/{siapa?}', [UserController::class, 'laporan'])->name('pekat.laporan');
-
     // Logout Masyarakat
     Route::get('/logout', [UserController::class, 'logout'])->name('pekat.logout');
 });
 
-Route::middleware(['guest'])->group(function () {
+Route::middleware(['isGuest'])->group(function () {
     // Login Masyarakat
     Route::post('/login/auth', [UserController::class, 'login'])->name('pekat.login');
 

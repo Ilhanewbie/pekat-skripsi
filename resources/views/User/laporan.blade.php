@@ -8,8 +8,28 @@
         position: relative;
         width: 100%;
         height: 35vh;
-        background: #6a70fc;
+        background: #277100;
         overflow: hidden;
+    }
+
+    .background-img{
+        position: relative;
+        width: 100%;
+        height: 35vh;
+        background-image: url(../images/bg-1.png);
+        background-size: cover;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .background-img::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(39, 113, 0, 0.7), rgba(255, 245, 0, 0.7));
     }
 
     .notification {
@@ -27,6 +47,48 @@
         padding: 0px 25px 0px 25px;
         font-size: 14px;
     }
+
+    .footer {
+        background: #123300;
+        color: white;
+        height: 100%;
+    }
+
+    .footer .links ul {
+        list-style-type: none;
+    }
+
+    .footer .links ul li a {
+        color: white;
+        transition: color 0.2s;
+    }
+
+    .footer .links ul li a:hover {
+        text-decoration: none;
+        color: #fff500;
+    }
+
+    .footer .about-company i {
+    font-size: 25px;
+    }
+
+    .footer .about-company a {
+        color: white;
+        transition: color 0.2s;
+    }
+
+    .footer .about-company a:hover {
+        color: #fff500;
+    }
+
+    .footer .location i {
+        font-size: 18px;
+    }
+
+    .footer .copyright p {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
 </style>
 @endsection
 
@@ -53,7 +115,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link ml-3 text-white" href="{{ route('pekat.logout') }}"
-                                style="text-decoration: underline">{{ Auth::guard('masyarakat')->user()->nama }}</a>
+                                style="text-decoration: underline">Logout</a>
                         </li>
                     </ul>
                     @else
@@ -71,63 +133,16 @@
             </div>
         </div>
     </nav>
-
 </section>
 {{-- Section Card --}}
 <div class="container">
     <div class="row justify-content-between">
-        <div class="col-lg-8 col-md-12 col-sm-12 col-12 col">
-            <div class="content content-top shadow">
-                @if ($errors->any())
-                @foreach ($errors->all() as $error)
-                <div class="alert alert-danger">{{ $error }}</div>
-                @endforeach
-                @endif
-                @if (Session::has('pengaduan'))
-                <div class="alert alert-{{ Session::get('type') }}">{{ Session::get('pengaduan') }}</div>
-                @endif
-                <div class="card mb-3">Tulis Laporan Disini</div>
-                <form action="{{ route('pekat.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <div class="form-group">
-                        <input type="text" value="{{ old('judul_laporan') }}" name="judul_laporan" placeholder="Masukkan Judul Laporan"
-                            class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <textarea name="isi_laporan" placeholder="Masukkan Isi Laporan" class="form-control"
-                            rows="4">{{ old('isi_laporan') }}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" value="{{ old('tgl_kejadian') }}" name="tgl_kejadian" placeholder="Pilih Tanggal Kejadian" class="form-control"
-                            onfocusin="(this.type='date')" onfocusout="(this.type='text')">
-                    </div>
-                    <div class="form-group">
-                        <textarea name="lokasi_kejadian" rows="3" class="form-control" placeholder="Lokasi Kejadian">{{ old('lokasi_kejadian') }}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group mb-3">
-                            <select name="kategori_kejadian" class="custom-select" id="inputGroupSelect01" required>
-                                <option value="" selected>Pilih Kategori Kejadian</option>
-                                <option value="agama">Agama</option>
-                                <option value="hukum">Hukum</option>
-                                <option value="lingkungan">Lingkungan</option>
-                                <option value="sosial">Sosial</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <input type="file" name="foto" class="form-control">
-                    </div>
-                    <button type="submit" class="btn btn-custom mt-2">Kirim</button>
-                </form>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-12 col-sm-12 col-12 col">
-            <div class="content content-bottom shadow">
+        <div class="col-lg-12" style="height: 50%;">
+            <div class="content content-bottom shadow banner-top">
                 <div>
                     <img src="{{ asset('images/user_default.svg') }}" alt="user profile" class="photo">
                     <div class="self-align">
-                        <h5><a style="color: #6a70fc" href="#">{{ Auth::guard('masyarakat')->user()->nama }}</a></h5>
+                        <h5><a style="color: #277100" href="#">{{ Auth::guard('masyarakat')->user()->nama }}</a></h5>
                         <p class="text-dark">{{ Auth::guard('masyarakat')->user()->username }}</p>
                     </div>
                     <div class="row text-center">
@@ -155,8 +170,8 @@
         </div>
     </div>
 
-    <div class="row mt-5">
-        <div class="col-lg-8">
+    <div class="row">
+        <div class="col">
             <a class="d-inline tab {{ $siapa != 'me' ? 'tab-active' : ''}} mr-4" href="{{ route('pekat.laporan') }}">
                 Semua
             </a>
@@ -165,8 +180,10 @@
             </a>
             <hr>
         </div>
+    </div>
+    <div class="row">
         @foreach ($pengaduan as $k => $v)
-        <div class="col-lg-8">
+        <div class="col">
             <div class="laporan-top">
                 <img src="{{ asset('images/user_default.svg') }}" alt="profile" class="profile">
                 <div class="d-flex justify-content-between">
@@ -193,7 +210,7 @@
             </div>
             <div class="laporan-bottom">
                 @if ($v->foto != null)
-                <img src="{{ Storage::url($v->foto) }}" alt="{{ 'Gambar '.$v->judul_laporan }}" class="gambar-lampiran">
+                <img src="{{ asset($v->foto) }}" alt="{{ 'Gambar '.$v->judul_laporan }}" class="gambar-lampiran">
                 @endif
                 @if ($v->tanggapan != null)
                 <p class="mt-3 mb-1">{{ '*Tanggapan dari '. $v->tanggapan->petugas->nama_petugas }}</p>
@@ -205,11 +222,29 @@
         @endforeach
     </div>
 </div>
+</div>
 {{-- Footer --}}
-<div class="mt-5">
-    <hr>
-    <div class="text-center">
-        <p class="italic text-secondary">© 2021 Ihsanfrr • All rights reserved</p>
+<div class="mt-5 pt-5 pb-5 footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 col-xs-12 about-company">
+          <h2>Tentang</h2>
+          <p class="pr-5 text-white-50">PEKAT merupakan sebuah platform untuk mempermudah masyarakat dalam menyuarakan aspirasi/mengirimkan laporan pengaduan kepada pihak desa.</p>
+        </div>
+        <div class="col-lg-6 col-xs-12 location">
+          <h4 class="mt-lg-0 mt-sm-4">Lokasi</h4>
+          <p>Jl. Raya Narogong No.Km.16, RW.5, Limus Nunggal, Kec. Cileungsi, Kabupaten Bogor, Jawa Barat 16820, Indonesia</p>
+          <p class="mb-0"><i class="fa fa-phone mr-3"></i>(021) 22950440</p>
+          <p class="mb-0"><i class="fab fa-whatsapp-square mr-3"></i>08961327350 (Syahrul)</p>
+          <p class="mb-0"><i class="fab fa-whatsapp-square mr-3"></i>089670406110 (Ahmad)</p>
+
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col copyright">
+          <p class=""><small class="text-white-50">© 2024. Ilhan Firaldi - Universitas Singaperbangsa Karawang.</small></p>
+        </div>
+      </div>
     </div>
 </div>
 @endsection

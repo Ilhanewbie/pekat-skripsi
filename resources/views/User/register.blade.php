@@ -4,32 +4,43 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
     body {
-        background: #6a70fc;
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        background: linear-gradient(to bottom, #277100, #fff500); /* Gradient background */
+        overflow: hidden;
     }
 
     .btn-purple {
-        background: #6a70fc;
+        background: #277100;
+        width: 100%;
+        color: #fff;
+        font-weight: 600;
+    }
+
+    .btn-yellow {
+        background: #fff500;
         width: 100%;
         color: #fff;
         font-weight: 600;
     }
 
     .btn-purple:hover {
-        background: #6a70fc;
+        background: #277100;
         width: 100%;
         color: #fff;
         font-weight: 600;
     }
 
     .btn-facebook {
-        background: #3b66c4;
+        background: #277100;
         width: 100%;
         color: #fff;
         font-weight: 600;
     }
 
     .btn-facebook:hover {
-        background: #3b66c4;
+        background: #277100;
         width: 100%;
         color: #fff;
         font-weight: 600;
@@ -49,6 +60,20 @@
         font-weight: 600;
     }
 
+    .background-img {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1; /* Meletakkan gambar di belakang konten */
+        opacity: 0.3; /* Opacity gambar */
+        background-image: url(../images/bg-1.png);
+        background-size: cover; /* Mengupscalling gambar */
+        background-repeat: no-repeat; /* Menghindari pengulangan gambar */
+        background-position: center; 
+    }
+
 </style>
 @endsection
 
@@ -56,11 +81,14 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-lg-5">
-            <h2 class="text-center text-white mb-0 mt-5">PEKAT</h2>
-            <P class="text-center text-white mb-5">Pengaduan Masyarakat</P>
-            <div class="card mt-5">
+    <div class="background-img"></div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-lg-5 mt-5">
+            <div class="row d-flex justify-content-center" width="100%">
+                <img src="{{ asset('images/logo.png') }}" width="30%" height="30%" class="mb-0 mt-2">
+                <img src="{{ asset('images/logo-v2.png') }}" width="20%" class="mb-0">
+            </div>
+            <div class="card mt-3">
                 <div class="card-body">
                     <h2 class="text-center mb-4">FORM DAFTAR</h2>
                     <form action="{{ route('pekat.register') }}" method="POST">
@@ -113,7 +141,7 @@
                                 </div>
                             @enderror
                         </div>
-                        <button type="submit" class="btn btn-purple">DAFTAR</button>
+                        <button type="submit" class="btn btn-yellow text-dark">DAFTAR</button>
                     </form>
                 </div>
             </div>
@@ -122,7 +150,7 @@
                     {{ Session::get('pesan') }}
                 </div>
             @endif
-            <a href="{{ route('pekat.landingPage') }}" class="btn btn-warning text-white mt-3 mb-3" style="width: 100%; font-weight: 600">Kembali ke Halaman Utama</a>
+            <a href="{{ route('pekat.landingPage') }}" class="btn btn-purple text-white mt-3 mb-3" style="width: 100%; font-weight: 600">Kembali ke Halaman Utama</a>
         </div>
     </div>
 </div>

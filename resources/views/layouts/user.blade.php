@@ -9,6 +9,7 @@
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     @yield('css')
 
     <title>@yield('title')</title>

@@ -61,7 +61,7 @@
                             <tr>
                                 <th>Foto</th>
                                 <td>:</td>
-                                <td><img src="{{ Storage::url($pengaduan->foto) }}" alt="Foto Pengaduan" class="embed-responsive"></td>
+                                <td><img src="{{ asset($pengaduan->foto) }}" alt="Foto Pengaduan" class="embed-responsive"></td>
                             </tr>
                             <tr>
                                 <th>Judul Laporan</th>
@@ -138,7 +138,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="tanggapan">Tanggapana</label>
+                            <label for="tanggapan">Tanggapan</label>
                             <textarea name="tanggapan" id="tanggapan" rows="4" class="form-control" placeholder="Belum ada tanggapan">{{ $tanggapan->tanggapan ?? '' }}</textarea>
                         </div>
                         <button type="submit" class="btn btn-purple">KIRIM</button>
@@ -146,6 +146,11 @@
                     @if (Session::has('status'))
                         <div class="alert alert-success mt-2">
                             {{ Session::get('status') }}
+                        </div>
+                    @endif
+                    @if (Session::has('error'))
+                        <div class="alert alert-danger mt-2">
+                            {{ Session::get('error') }}
                         </div>
                     @endif
                 </div>

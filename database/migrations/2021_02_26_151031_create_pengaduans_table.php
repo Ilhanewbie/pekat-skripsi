@@ -16,7 +16,7 @@ class CreatePengaduansTable extends Migration
         Schema::create('pengaduan', function (Blueprint $table) {
             $table->id('id_pengaduan');
             $table->dateTime('tgl_pengaduan');
-            $table->char('nik', 16);
+            $table->unsignedBigInteger('id_masyarakat');
             $table->string('judul_laporan');
             $table->text('isi_laporan');
             $table->dateTime('tgl_kejadian');
@@ -27,7 +27,7 @@ class CreatePengaduansTable extends Migration
 
             $table->timestamps();
 
-            $table->foreign('nik')->references('nik')->on('masyarakat');
+            $table->foreign('id_masyarakat')->references('id_masyarakat')->on('masyarakat');
         });
     }
 

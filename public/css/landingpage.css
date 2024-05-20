@@ -1,12 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,500;0,600;1,400&display=swap");
 
+/* .header {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: #277100;
+    overflow: hidden;
+} */
+
 .header {
     position: relative;
     width: 100%;
-    height: 90vh;
-    background: #6a70fc;
+    height: 100vh;
+    background: linear-gradient(to bottom, #277100, #fff500); /* Gradient background */
     overflow: hidden;
 }
+
 
 .header .wave {
     position: absolute;
@@ -120,7 +129,7 @@ body {
 .navbar .container-fluid #navbarNav .navbar-nav .nav-item .btn-purple {
     border: 1px solid #fff;
     background: #fff;
-    color: #6a70fc !important;
+    color: #277100 !important;
     width: 100%;
 }
 
@@ -131,7 +140,7 @@ body {
 }
 
 .navbar .container-fluid #navbarNav .navbar-nav .nav-item .btn-outline-purple:hover {
-    color: #6a70fc;
+    color: #277100;
     border: 1px solid #fff;
     background: #fff;
 }
@@ -153,7 +162,7 @@ body {
         padding: 32px 20px 32px 20px;
         background: #fff;
         margin-top: -160px;
-        border-color: #6a70fc;
+        border-color: #277100;
     }
 }
 
@@ -162,7 +171,7 @@ body {
         padding: 32px 20px 32px 20px;
         background: #fff;
         margin-top: -160px;
-        border-color: #6a70fc;
+        border-color: #277100;
     }
 }
 
@@ -171,7 +180,7 @@ body {
         padding: 32px 20px 32px 20px;
         background: #fff;
         margin-top: -160px;
-        border-color: #6a70fc;
+        border-color: #277100;
     }
 }
 
@@ -196,7 +205,7 @@ body {
 .row .col .content {
     padding: 32px 20px 32px 20px;
     background: #fff;
-    border-color: #6a70fc;
+    border-color: #277100;
 }
 
 @media screen and (min-width: 992px) {
@@ -204,24 +213,24 @@ body {
         padding: 32px 20px 32px 20px;
         background: #fff;
         margin-top: -160px;
-        border-color: #6a70fc;
+        border-color: #277100;
     }
 }
 
 .row .col .content .card {
-    background: #6a70fc;
+    background: #277100;
     padding: 16px;
     color: #fff;
 }
 
 .row .col .content .btn-custom {
-    background: #6a70fc;
+    background: #277100;
     color: #fff;
     width: 100%;
 }
 
 .pengaduan .bg-purple {
-    background: #6a70fc;
+    background: #277100;
     width: 100%;
     padding: 26px;
 }
@@ -238,8 +247,8 @@ body {
 }
 
 .modal .modal-dialog .modal-content .modal-body .btn-purple {
-    border: 1px solid #6a70fc;
-    background: #6a70fc;
+    border: 1px solid #277100;
+    background: #277100;
     color: #fff;
     width: 100%;
 }

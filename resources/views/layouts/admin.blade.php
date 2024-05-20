@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <title>@yield('title')</title>
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
         integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -15,14 +17,14 @@
 
     <style>
         .btn-purple {
-            background: #6a70fc;
-            border: 1px solid #6a70fc;
+            background: #277100;
+            border: 1px solid #277100;
             color: #fff;
         }
 
         .btn-purple:hover {
-            background: #6a70fc;
-            border: 1px solid #6a70fc;
+            background: #277100;
+            border: 1px solid #277100;
             color: #fff;
         }
     </style>
@@ -44,9 +46,6 @@
                 @if (Auth::guard('admin')->user()->level == 'admin')
                 <li class="{{ Request::is('admin/dashboard') ? 'active' : '' }}">
                     <a href="{{ route('dashboard.index') }}">Dashboard</a>
-                </li>
-                <li class="{{ Request::is('admin/pengaduan') ? 'active' : '' }}">
-                    <a href="{{ route('pengaduan.index') }}">Pengaduan</a>
                 </li>
                 <li class="{{ Request::is('admin/petugas') ? 'active' : '' }}">
                     <a href="{{ route('petugas.index') }}">Petugas</a>
